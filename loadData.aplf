@@ -1,0 +1,5 @@
+loadData  ← {
+    token ← aocToken 1
+    output ← ⎕SH 'curl --cookie "session=',token,'" https://adventofcode.com/2023/day/',(⍕⍵),'/input'
+    output
+}
