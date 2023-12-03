@@ -1,0 +1,20 @@
+main1 ← {
+   input ← ↑loadData 3
+   windows33 ← ,⊂⍤⊢⌺3 3 ⊢ input
+   windows34 ← ,⊂⍤⊢⌺3 4 ⊢ input
+   windows35 ← ,⊂⍤⊢⌺3 5 ⊢ input
+   w ← windows33,windows34,windows35
+   firstRow ← 1 ⌷¨ w
+   lastRow ← 1 ⌷¨⊖¨ w
+   firstCol ← 1 ⌷¨⍉¨ w
+   lastCol ← 1 ⌷¨⊖¨⍉¨ w
+   allSurroundingElements ← (' ' ⎕R '.')¨firstRow,¨lastRow,¨firstCol,¨lastCol
+   surroundingElementsAreDots ← ∧/¨'.' = allSurroundingElements
+   surroundingElementsHaveNumbers ← ∨/¨'a' = ('\d' ⎕R 'a') allSurroundingElements
+   centerElements ← ⍉¨⊖¨1↓¨⊖¨1↓¨⍉¨⊖¨1↓¨⊖¨1↓¨w
+   centerElementsAreNumbers ← ↑,/×/¨'1'=↑¨('\d' ⎕R '1')¨↓¨centerElements
+   centerNumbers ← ⍎¨,¨ centerElements /⍨ surroundingElementsAreDots × centerElementsAreNumbers
+   allNumbers ← ⍎¨,¨centerElements /⍨ (centerElementsAreNumbers ∧ ~surroundingElementsHaveNumbers)
+
+   allNumbers -⍥(+/) centerNumbers
+}
