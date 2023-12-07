@@ -1,0 +1,16 @@
+main ← {
+    input ← loadData 1
+    input ← ('one' ⎕R '1')¨input
+    input ← ('two' ⎕R '2')¨input
+    input ← ('four' ⎕R '4')¨input
+    input ← ('five' ⎕R '5')¨input
+    input ← ('three' ⎕R '3')¨input
+    input ← ('six' ⎕R '6')¨input
+    input ← ('seven' ⎕R '7')¨input
+    input ← ('nine' ⎕R '9')¨input
+    input ← ('eight' ⎕R '8')¨input
+    firstDigit ← ('.*?(\d).*' ⎕R '\1')¨ input
+    lastDigit ← ('.*?(\d).*' ⎕R '\1')¨ ⌽¨input
+    calibrationValues ← ↑firstDigit,.(⊂,)lastDigit
+    +/⍎¨ calibrationValues
+}

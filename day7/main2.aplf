@@ -1,0 +1,18 @@
+main2 ← {
+    chars ← ⎕D,'TQKA'
+    replaceZeros ← {⍵((⊢×(1≠⊢))+(⊣×(1=⊢)))⍨val←⌈/0~⍨∪,{(1-⍨0⊥⍴⍵)↓⍤1⊢⍵}{⍺⍴⍨(⍴⍵)}⌸⍨1~⍨⊃⍵}
+    ⍝input ← replaceZeros¨{(1-⍨⊂{chars⍳⍵}⊃⍵),(⍎2⊃⍵)}¨{⍵⊆⍨⍵∊chars}¨('J'⎕R'1')¨⊃⎕NGET 'test.txt' 1
+    input ← {(1-⍨⊂{chars⍳⍵}⊃⍵),(⍎2⊃⍵)}¨{⍵⊆⍨⍵∊chars}¨('J'⎕R'1')¨('JJJJJ'⎕R'11112')¨loadData 7
+    inputNoJ ← replaceZeros¨input
+    handType ← {+/5 4 3 2 1 ∘.=+⌿(⊃⍵) ∘.= ⍳14}¨inputNoJ
+    groupedInput ← handType{⊂⍺ ⍵}⌸input
+    groupedInput ← ⊃¨1↓¨groupedInput[⍋↑⊃¨groupedInput]
+    ⍝indexGroups ← ⍋¨⊃¨¨groupedInput
+    indexGroups ← {⍋16∘⊥¨⊃¨⍵}¨groupedInput
+    ⍝indexGroups ← {⍋{,5 4 3 2 1 ∘.=+⌿(⊃⍵) ∘.= chars}¨⍵}¨groupedInput
+    totalIndex ← ↑,/indexGroups +¨ ((+\⍴¨)-(⍴¨))groupedInput
+    ⍝↑(↑,/groupedInput)[totalIndex]
+    +/ (⍳⍴input) × {⊃⌽⍵}¨(↑,/groupedInput)[totalIndex]
+    ⍝ 251181217
+    ⍝ 251224915
+}

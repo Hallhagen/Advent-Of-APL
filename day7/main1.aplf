@@ -1,0 +1,13 @@
+main1 ← {
+    chars ← ⎕D,'TJQKA'
+    input ← {⍵⊆⍨⍵∊⎕D,'TJQKA'}¨loadData 7
+    ⍝input ← {⍵⊆⍨⍵∊⎕D,'TJQKA'}¨⊃⎕NGET 'test.txt' 1
+    input ← {(1-⍨⊂{chars⍳⍵}⊃⍵),(⍎2⊃⍵)}¨input
+    handType ← {+/5 4 3 2 1 ∘.=+⌿(⊃⍵) ∘.= ⍳14}¨input
+    groupedInput ← handType{⊂⍺ ⍵}⌸input
+    groupedInput ← ⊃¨1↓¨groupedInput[⍋↑⊃¨groupedInput]
+    indexGroups ← ⍋¨⊃¨¨groupedInput
+    ⍝indexGroups ← {⍋{,5 4 3 2 1 ∘.=+⌿(⊃⍵) ∘.= chars}¨⍵}¨groupedInput
+    totalIndex ← ↑,/indexGroups +¨ ((+\⍴¨)-(⍴¨))groupedInput
+    +/ (⍳⍴input) × {⊃⌽⍵}¨(↑,/groupedInput)[totalIndex]
+}
